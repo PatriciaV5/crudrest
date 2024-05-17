@@ -65,9 +65,16 @@ public class ProdutoController {
 	}
 	
 	@DeleteMapping("/produto/{id}")
-	public ResponseEntity<Object> apagarProduto(
-			@PathVariable(value ="id") Integer id){
-		return null;
+	public ResponseEntity<Object> apagar(@PathVariable Integer id){ 
+		if (repository.removeById(id)) {
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body("Produto apagado com sucesso!");
+		}else {
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body("Produto não encontrado");
+		}
 		
 	}
 
